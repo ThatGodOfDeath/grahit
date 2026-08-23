@@ -1,0 +1,544 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f4f6;
+    color: #1f2937;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+/* =========================
+   TOP BAR
+   ========================= */
+
+.topbar {
+    height: 70px;
+    background: #111827;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
+    gap: 15px;
+}
+
+
+.topbar h1 {
+    font-size: 24px;
+}
+
+
+.topbar p {
+    color: #9ca3af;
+}
+
+
+/* =========================
+   MAIN APPLICATION
+   ========================= */
+
+.app {
+    height: calc(100vh - 70px);
+    display: flex;
+}
+
+
+/* =========================
+   SIDEBAR
+   ========================= */
+
+.sidebar {
+    width: 330px;
+    background: #ffffff;
+    border-right: 1px solid #d1d5db;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+
+.panel {
+    margin-bottom: 25px;
+}
+
+
+.panel h2 {
+    font-size: 18px;
+    margin-bottom: 18px;
+}
+
+
+/* =========================
+   INPUT
+   ========================= */
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+
+select,
+textarea {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+
+select {
+    background: white;
+}
+
+
+textarea {
+    height: 260px;
+    resize: vertical;
+    font-family: Consolas, monospace;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   BUTTON
+   ========================= */
+
+button {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 7px;
+    background: #2563eb;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+button:hover {
+    background: #1d4ed8;
+}
+
+
+/* =========================
+   ERROR
+   ========================= */
+
+.error {
+    margin-top: 12px;
+    padding: 10px;
+    border-radius: 6px;
+    background: #fee2e2;
+    color: #b91c1c;
+    font-size: 13px;
+}
+
+
+.hidden {
+    display: none;
+}
+
+
+/* =========================
+   GRAPH CONTAINER
+   ========================= */
+
+.graph-container {
+    position: relative;
+    flex: 1;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+
+#graphCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+}
+
+
+/* =========================
+   HELP
+   ========================= */
+
+.canvas-help {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 100;
+}
+
+
+/*
+ * Help button
+ */
+
+.help-button {
+    width: auto;
+    border: none;
+    background: white;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 11px;
+    border-radius: 7px;
+    cursor: help;
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.12);
+    transition:
+        background 0.15s ease,
+        transform 0.15s ease;
+}
+
+
+.help-button:hover {
+    background: #f3f4f6;
+    transform: translateY(-1px);
+}
+
+
+/*
+ * Help tooltip
+ */
+
+.help-tooltip {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    width: 270px;
+    padding: 14px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform:
+        translateY(-5px);
+    transition:
+        opacity 0.15s ease,
+        transform 0.15s ease,
+        visibility 0.15s ease;
+    pointer-events: none;
+}
+
+
+/*
+ * Show tooltip when hovering
+ * over the Help container.
+ */
+
+.canvas-help:hover .help-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform:
+        translateY(0);
+    pointer-events: auto;
+}
+
+
+/*
+ * Tooltip title
+ */
+
+.help-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111827;
+    padding-bottom: 9px;
+    margin-bottom: 7px;
+    border-bottom:
+        1px solid #e5e7eb;
+}
+
+
+/*
+ * Individual instruction
+ */
+
+.help-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 12px;
+    line-height: 1.45;
+    color: #4b5563;
+    padding: 5px 0;
+}
+
+
+/*
+ * Instruction icon
+ */
+
+.help-item > span:first-child {
+    width: 20px;
+    flex-shrink: 0;
+    text-align: center;
+    color: #374151;
+}
+
+
+/*
+ * Instruction action
+ */
+
+.help-item b {
+    color: #111827;
+}
+
+
+/* =========================
+   GRAPH INFORMATION
+   ========================= */
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 9px 0;
+    border-bottom:
+        1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+
+.info-row strong {
+    color: #2563eb;
+}
+
+
+/* =========================
+   VIEW BUTTONS
+   ========================= */
+
+.view-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+
+.view-buttons button {
+    flex: 1;
+    font-size: 13px;
+    padding: 9px 5px;
+}
+
+
+/* =========================
+   SELECTION INFORMATION
+   ========================= */
+
+#selectionInfo {
+    font-size: 13px;
+}
+
+
+.no-selection {
+    color: #6b7280;
+    margin: 0;
+}
+
+
+.selection-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 6px 0;
+    border-bottom:
+        1px solid #e5e7eb;
+}
+
+
+.selection-row span {
+    color: #6b7280;
+}
+
+
+.selection-row strong {
+    text-align: right;
+    word-break: break-word;
+}
+
+
+/* =========================
+   GRAPH SETTINGS
+   ========================= */
+
+.setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom:
+        1px solid #e5e7eb;
+}
+
+
+.setting-row label {
+    margin: 0;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+
+.setting-row input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+
+/* =========================
+   SELECTION EDIT
+   ========================= */
+
+.selection-edit {
+    margin: 10px 0;
+}
+
+
+.selection-edit label {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+
+.selection-edit input {
+    width: 100%;
+    padding: 7px;
+    border:
+        1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+
+.selection-edit button {
+    width: 100%;
+    margin-top: 6px;
+    padding: 7px;
+    font-size: 12px;
+}
+
+
+.selection-edit input:disabled {
+    background: #f3f4f6;
+    cursor: not-allowed;
+}
+
+
+.selection-edit button:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+
+/* =========================
+   EDIT MODE
+   ========================= */
+
+.mode-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+
+.mode-button {
+    width: 100%;
+    padding: 9px 6px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    background: #f9fafb;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background 0.15s ease,
+        color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+
+.mode-button:hover {
+    background: #f3f4f6;
+    color: #111827;
+}
+
+
+/*
+ * Currently active mode.
+ */
+
+.mode-button.active {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+
+.mode-button.active:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+}
+
+
+/*
+ * Current mode indicator.
+ */
+
+.current-mode {
+    margin-top: 12px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background: #f3f4f6;
+    color: #6b7280;
+    font-size: 12px;
+    text-align: center;
+}
+
+
+.current-mode strong {
+    color: #2563eb;
+}
+
+
+/* =========================
+   SIDEBAR SCROLLBAR
+   ========================= */
+
+.sidebar::-webkit-scrollbar {
+    width: 7px;
+}
+
+
+.sidebar::-webkit-scrollbar-track {
+    background: #f9fafb;
+}
+
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 10px;
+}
+
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
